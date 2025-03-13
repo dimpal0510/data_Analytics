@@ -1,0 +1,82 @@
+Que 1. What are the types of Applications?
+Ans. There are many types of Applications such as web Applications, mobile Applications, desktop Application etc..
+
+Que 2. What is programing? 
+Ans. Programming is the process of creating sets of instructions that tell a computer how to perform a specific task. These instructions is known as a code are written in programming language that computer understand and execute to carry out various operations such as solving problems, analyzing data or controlling device.
+
+Que 3.What is Python? 
+Ans. Python is a popular programming language known for its simplicity and readability, was created by Guido Van Rossum. 
+
+Que 7. How memory is managed in Python? 
+Ans. Memory management in python involves a private heap containing all python objects and data structures. The management of this private heap is ensured internally by python memory manager. The python memory manager has different components which deal with various dynamic storage management aspects, like sharing, segmentations, preallocation and caching.  
+
+Que 8. What is the purpose continuing statement in python? 
+Ans. The continue statement is used to skip the remaining code inside a loop for the current iteration only.
+
+Que 17. What are negative indexes and why are they used? 
+Ans. Negative indexes in Python are a feature that allows us to access elements in a list from the end instead of the beginning. This can be particularly useful when dealing with large lists or when we need to access the last elements without knowing their exact position.
+
+Que 25. What is List? How will you reverse a list? 
+Ans. List is a data structure in python is a mutable, or changeable, ordered sequence of elements. The .reverse() method in python is a built in method thar reverses the list in place. reversing the list means that the method modifies and changes the original list.
+
+Que 26. How will you remove last object from a list? 
+Ans. To remove the last object from a list, you will specify the last index as -1 using the pop() function.
+
+Que 28. Differentiate between append () and extend () methods?
+Ans.  Append() add a single elements at the end of the list, extend() add multiple elements from an inerable at the end of the list.
+Append() Access a single element, Extend() access an iterable. Append() length increases by 1, Extend() length increases by the number of elements in the iterable.
+Append() use case when we want to add one item, Extend() when we want to merge another iterable into the list.
+
+Que 43. What is tuple? Difference between list and tuple.
+Ans. Tuple is used for save multiple items in a single variable. Tuple is one of 4 data types in python used to store collection of data.
+List are mutable. Tuple are immutable. In List the implication os iteration is time consuming, In tuple the implication of itretaion is comparatively faster.
+List have several buit-in methods. tuple does not have many methods.
+
+Que. 65.  How Many Basic Types of Functions Are Available in Python?
+Ans. Three types of function available in python.
+-	Built-in Function
+-	User-defined Function
+-	Lambda Function (Anonymous Function)
+
+Que. 66 How can you pick a random item from a list or tuple?  
+Ans. To randomly select an item from a list in Python, you can use the random.choice() function from the random module. This function takes a list as an argument and returns a randomly selected element from the list.
+
+Que 67 How can you pick a random item from a range?
+Ans. To generate a random integer within a range, use the random. randint(a, b) function. This function returns a random integer (N) such that (a \leq N \leq b). This is incredibly useful for tasks like simulating dice rolls or selecting random items by index from a list.
+
+Que 68. How can you get a random number in python?
+Ans. To generate random integers within a specified range, you can use the randint() or randrange() functions from the random module. 
+
+Que 69. How will you set the starting value in generating random numbers?
+Ans. randint(1, 10) generates a random integer between 1 and 10, just like Python's randint() function. These alternative methods offer more flexibility and options for random number generation in Python. Depending on your specific needs, you might find one of these methods more suitable than randint().
+
+Que 70. How will you randomize the items of a list in place?
+Ans. Python Random shuffle() Method
+The shuffle() method takes a sequence, like a list, and reorganize the order of the items.
+This method changes the original list, it does not return a new list.
+
+Que 71. What is File function in python? What are keywords to create and write file.
+Ans.  X is used to create a file. W is used to write file.
+
+Que 83. Explain Exception handling? What is an Error in Python?
+Ans. Exception handling is handle error that occur during of execution of a program.
+
+Que 84. How many except statements can a try-except block have? Name Some built-in exception classes:
+Ans. There has to be at least one except statement. Some common buil-in exception classes are :
+NameError, ArithmaticError, IndexError, ExceptionError, ValueError, TypeError, IOError, ZeroDivisionError, AttributeError, OverFlowError, RuntimeError, PermissionError, FileNotFountError, FloatingPointError.
+
+Que 85. When will the else part of try-except-else be executed?
+Ans.  The else part of a try...except...else block in Python is executed only if the code within the try block completes successfully without raising any exceptions. 
+
+Que 86. Can one block of except statements handle multiple exception?
+Ans.  Yes, a single except block in Python can handle multiple exceptions by listing them as a tuple within the except statement. 
+
+Que 87. When is the finally block executed?
+Ans.  The finally block always executes when the associated try block exits, regardless of whether an exception is thrown or caught within the try block
+
+Que 88. What happens when „1‟== 1 is executed?
+Ans.  1 == 1 is a equality check which simply means “Is 1 equal to 1?” as == is a Python Comparison Operator which simply means “If the values of two operands are equal, then the condition becomes true”
+ 
+
+	
+
