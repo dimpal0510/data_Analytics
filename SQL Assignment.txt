@@ -1,0 +1,147 @@
+Creating Company Table:
+
+
+mysql> create table Company(CompanyID int primary key auto_increment,CompanyName varchar(45),street varchar(45),City varchar(45),State varchar(2),Zip varchar(10));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> describe Company;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| CompanyID   | int         | NO   | PRI | NULL    | auto_increment |
+| CompanyName | varchar(45) | YES  |     | NULL    |                |
+| street      | varchar(45) | YES  |     | NULL    |                |
+| City        | varchar(45) | YES  |     | NULL    |                |
+| State       | varchar(2)  | YES  |     | NULL    |                |
+| Zip         | varchar(10) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+
+1) Statement to create the Contact table 
+Ans:-
+
+mysql> create table contact(ContactID int primary key auto_increment,CompanyID int,FirstName varchar(25),LastName varchar(25),Street varchar(25),City varchar(25),State varchar(25),Zip varchar(25),Ismain boolean,Email varchar(50),Phone varchar(10),foreign key (CompanyID) references company(CompanyID));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> describe contact;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| ContactID | int         | NO   | PRI | NULL    | auto_increment |
+| CompanyID | int         | YES  | MUL | NULL    |                |
+| FirstName | varchar(25) | YES  |     | NULL    |                |
+| LastName  | varchar(25) | YES  |     | NULL    |                |
+| Street    | varchar(25) | YES  |     | NULL    |                |
+| City      | varchar(25) | YES  |     | NULL    |                |
+| State     | varchar(25) | YES  |     | NULL    |                |
+| Zip       | varchar(25) | YES  |     | NULL    |                |
+| Ismain    | tinyint(1)  | YES  |     | NULL    |                |
+| Email     | varchar(50) | YES  |     | NULL    |                |
+| Phone     | varchar(10) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+11 rows in set (0.00 sec)
+
+2) Statement to create the Employee table
+Ans:-
+mysql> create table Employee(EmployeeID int primary key auto_increment,FirstName varchar(45),LastName varchar(45),Salary decimal(10,2),Hire_date date,JobTitle varchar(45),Email varchar(45),Phone varchar(12));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> describe Employee;
++------------+---------------+------+-----+---------+----------------+
+| Field      | Type          | Null | Key | Default | Extra          |
++------------+---------------+------+-----+---------+----------------+
+| EmployeeID | int           | NO   | PRI | NULL    | auto_increment |
+| FirstName  | varchar(45)   | YES  |     | NULL    |                |
+| LastName   | varchar(45)   | YES  |     | NULL    |                |
+| Salary     | decimal(10,2) | YES  |     | NULL    |                |
+| Hire_date  | date          | YES  |     | NULL    |                |
+| JobTitle   | varchar(45)   | YES  |     | NULL    |                |
+| Email      | varchar(45)   | YES  |     | NULL    |                |
+| Phone      | varchar(12)   | YES  |     | NULL    |                |
++------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.02 sec)
+
+3) Statement to create the ContactEmployee table
+HINT: Use DATE as the datatype for ContactDate. It allows you to store the date in this format: YYYY-MM-DD (i.e., ‘2014-03-12’ for March 12, 2014). 
+Ans:-
+
+mysql> create table contactEmployee(contactEmployeeID int primary key auto_increment,ContactID int,EmployeeID int,contactDate date,Description varchar(50),foreign key(ContactID) references contact(ContactID),foreign key(EmployeeID) references employee(EmployeeID));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> describe contactEmployee;
++-------------------+-------------+------+-----+---------+----------------+
+| Field             | Type        | Null | Key | Default | Extra          |
++-------------------+-------------+------+-----+---------+----------------+
+| contactEmployeeID | int         | NO   | PRI | NULL    | auto_increment |
+| ContactID         | int         | YES  | MUL | NULL    |                |
+| EmployeeID        | int         | YES  | MUL | NULL    |                |
+| contactDate       | date        | YES  |     | NULL    |                |
+| Description       | varchar(50) | YES  |     | NULL    |                |
++-------------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+4) In the Employee table, the statement that changes Lesley Bland’s phone number to 215-555-8800.
+Ans:-
+
+mysql> update employee set phone = '215-555-8800' where EmployeeID = 1003;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+5) In the Company table, the statement that changes the name of “Urban Outfitters, Inc.” to “Urban Outfitters” . 
+Ans:-
+
+mysql> update company set CompanyName = 'Appolo Info' where CompanyID = 105;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+6) In ContactEmployee table, the statement that removes Dianne Connor’s contact event with Jack Lee (one statement).
+HINT: Use the primary key of the ContactEmployee table to specify the correct record to remove.
+Ans:-
+
+mysql> delete from contactemployee where ContactID = (select ContactID from contact where FirstName = "Vasu" and LastName = "Patel") and EmployeeID = (select EmployeeID from employee where FirstName = "Ketan" and LastName = "Patel");
+Query OK, 0 rows affected (0.02 sec)
+
+7) Write the SQL SELECT query that displays the names of the employees that have contacted Toll Brothers (one statement). Run the SQL SELECT query in
+MySQL Workbench. Copy the results below as well. 
+Ans:-
+
+mysql> select E.FIrstName, E.LastName from employee E
+    -> join contactemployee ce on E.EmployeeID = ce.EmployeeID
+    -> join contact c on ce.ContactID = c.ContactID
+    -> join company com on c.CompanyID = com.CompanyID
+    -> where com.CompanyName = "Dexian";
++-----------+----------+
+| FIrstName | LastName |
++-----------+----------+
+| Ketan     | Patel    |
++-----------+----------+
+1 row in set (0.00 sec)
+
+8) What is the significance of “%” and “_” operators in the LIKE statement?
+Ans:-
+ The "%" represents zero, one, or multiple characters, 
+ The "_" represents exactly one character. 
+
+9) Explain normalization in the context of databases. 
+Ans:-
+Normalization is the process of organizing data to minimize redundancy and maximize consistency. It involves breaking down large tables into smaller, more manageable tables with defined relationships between them. Normal Forms (1NF, 2NF, 3NF , BCNF , 4NF).
+
+10) What does a join in MySQL mean? 
+Ans:-
+JOIN is an SQL clause used to query and access data from multiple tables, based on logical relationships between those tables.
+
+11) What do you understand about DDL, DCL, and DML in MySQL?
+Ans:-
+DDL (Data definition language): defines database structure. (Create, Alter, Drop)
+DCL (Data control language): controls access. (grand, revote)
+DML (Data manipulation language): Manages data in tables. (insert, update, delete)
+
+12) What is the role of the MySQL JOIN clause in a query, and what are some common types of joins? 
+Ans:-
+MySQL joins combine data from multiple tables into a single result.
+Different join types (INNER, LEFT, RIGHT, etc.) 
+INNER JOIN: Returns records that have matching values in both tables
+LEFT JOIN: Returns all records from the left table, and the matched records from the right table
+RIGHT JOIN: Returns all records from the right table, and the matched records from the left table
+CROSS JOIN: Returns all records from both tables.
+
