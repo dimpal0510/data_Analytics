@@ -1,0 +1,220 @@
+Assessment 1: 
+
+1. Write an SQL query to print all Worker details from the Worker table order by FIRST_NAME Ascending and DEPARTMENT Descending. 
+Ans:-
+
+mysql> select * from worker order by Firstname asc, Department desc;
++----------+-----------+----------+--------+---------------------+------------+
+| WorkerID | FirstName | LastName | Salary | JoiningDate         | Department |
++----------+-----------+----------+--------+---------------------+------------+
+|        4 | Amitabh   | Singh    | 500000 | 2014-02-20 09:00:00 | Admin      |
+|        8 | Geetika   | Chauhan  |  90000 | 2014-04-11 09:00:00 | Admin      |
+|        1 | Monika    | Arora    | 100000 | 2014-02-20 09:00:00 | HR         |
+|        2 | Niharika  | Verma    |  80000 | 2014-06-11 09:00:00 | Admin      |
+|        7 | Satis     | Kumar    |  75000 | 2014-01-20 09:00:00 | Account    |
+|        6 | Vipul     | Diwan    | 200000 | 2014-06-11 09:00:00 | Account    |
+|        3 | Vishal    | Singhal  | 300000 | 2014-02-20 09:00:00 | HR         |
+|        5 | Vivek     | Bhati    | 500000 | 2014-06-11 09:00:00 | Admin      |
++----------+-----------+----------+--------+---------------------+------------+
+8 rows in set (0.00 sec)
+
+2.Write an SQL query to print details for Workers with the first names “Vipul” and “Satish”
+from the Worker table. 
+Ans:-
+
+mysql> select * from worker where FirstName in ("Vipul","Satis");
++----------+-----------+----------+--------+---------------------+------------+
+| WorkerID | FirstName | LastName | Salary | JoiningDate         | Department |
++----------+-----------+----------+--------+---------------------+------------+
+|        6 | Vipul     | Diwan    | 200000 | 2014-06-11 09:00:00 | Account    |
+|        7 | Satis     | Kumar    |  75000 | 2014-01-20 09:00:00 | Account    |
++----------+-----------+----------+--------+---------------------+------------+
+2 rows in set (0.00 sec)
+
+3. Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘h’ and
+contains six alphabets. 
+Ans:-
+
+mysql> select * from worker where FirstName like "______h";
++----------+-----------+----------+--------+---------------------+------------+
+| WorkerID | FirstName | LastName | Salary | JoiningDate         | Department |
++----------+-----------+----------+--------+---------------------+------------+
+|        4 | Amitabh   | Singh    | 500000 | 2014-02-20 09:00:00 | Admin      |
++----------+-----------+----------+--------+---------------------+------------+
+1 row in set (0.01 sec)
+
+4. Write an SQL query to print details of the Workers whose SALARY lies between 100000 And 500000. 
+Ans:-
+
+mysql> select * from worker where Salary between 100000 And 500000;
++----------+-----------+----------+--------+---------------------+------------+
+| WorkerID | FirstName | LastName | Salary | JoiningDate         | Department |
++----------+-----------+----------+--------+---------------------+------------+
+|        1 | Monika    | Arora    | 100000 | 2014-02-20 09:00:00 | HR         |
+|        3 | Vishal    | Singhal  | 300000 | 2014-02-20 09:00:00 | HR         |
+|        4 | Amitabh   | Singh    | 500000 | 2014-02-20 09:00:00 | Admin      |
+|        5 | Vivek     | Bhati    | 500000 | 2014-06-11 09:00:00 | Admin      |
+|        6 | Vipul     | Diwan    | 200000 | 2014-06-11 09:00:00 | Account    |
++----------+-----------+----------+--------+---------------------+------------+
+5 rows in set (0.00 sec)
+
+5. Write an SQL query to fetch duplicate records having matching data in some fields of a table. 
+Ans:-
+
+mysql> select count(Department) as count from worker group by Department having count(Department)>1;
++-------+
+| count |
++-------+
+|     2 |
+|     4 |
+|     2 |
++-------+
+3 rows in set (0.00 sec)
+
+6. Write an SQL query to show the top 6 records of a table.
+Ans:-
+
+mysql> select * from worker limit 6;
++----------+-----------+----------+--------+---------------------+------------+
+| WorkerID | FirstName | LastName | Salary | JoiningDate         | Department |
++----------+-----------+----------+--------+---------------------+------------+
+|        1 | Monika    | Arora    | 100000 | 2014-02-20 09:00:00 | HR         |
+|        2 | Niharika  | Verma    |  80000 | 2014-06-11 09:00:00 | Admin      |
+|        3 | Vishal    | Singhal  | 300000 | 2014-02-20 09:00:00 | HR         |
+|        4 | Amitabh   | Singh    | 500000 | 2014-02-20 09:00:00 | Admin      |
+|        5 | Vivek     | Bhati    | 500000 | 2014-06-11 09:00:00 | Admin      |
+|        6 | Vipul     | Diwan    | 200000 | 2014-06-11 09:00:00 | Account    |
++----------+-----------+----------+--------+---------------------+------------+
+6 rows in set (0.00 sec)
+
+7. Write an SQL query to fetch the departments that have less than five people in them. 
+Ans:-
+
+mysql> select Department from worker group by Department having count(WorkerID) < 5;
++------------+
+| Department |
++------------+
+| HR         |
+| Admin      |
+| Account    |
++------------+
+3 rows in set (0.00 sec)
+
+8. Write an SQL query to show all departments along with the number of people in there. 
+Ans:-
+
+mysql> select Department, count(*) as 'NO of People' from worker group by Department;
++------------+--------------+
+| Department | NO of People |
++------------+--------------+
+| HR         |            2 |
+| Admin      |            4 |
+| Account    |            2 |
++------------+--------------+
+3 rows in set (0.00 sec)
+
+9. Write an SQL query to print the name of employees having the highest salary in each
+department. 
+Ans:-
+
+mysql> select FirstName,Department,Salary from worker where Salary = (select max(Salary) from worker );
++-----------+------------+--------+
+| FirstName | Department | Salary |
++-----------+------------+--------+
+| Amitabh   | Admin      | 500000 |
+| Vivek     | Admin      | 500000 |
++-----------+------------+--------+
+2 rows in set (0.00 sec)
+
+Question 2: Open school database, then select student table and use following SQL statements.
+TYPE THE STATEMENT, PRESS ENTER AND NOTE THE OUTPUT 
+
+1 To display all the records form STUDENT table.
+Ans:-
+
+
+mysql> select * from student;
++-------+----------------+--------+------------+-------+------+----------+------------+
+| stdID | stdName        | sex    | Percentage | class | sec  | Stream   | DOB        |
++-------+----------------+--------+------------+-------+------+----------+------------+
+|  1001 | Surekha Joshi  | Female |         82 |    12 | A    | Science  | 1998-08-03 |
+|  1002 | Maahi Agarval  | Female |         56 |    11 | C    | Commerce | 2008-11-23 |
+|  1003 | Sanam Verma    | Male   |         59 |    11 | C    | Commerce | 2006-06-29 |
+|  1004 | Ronit Kumar    | Male   |         63 |    11 | C    | Commerce | 1997-05-11 |
+|  1005 | Dipesh Pulkit  | Male   |         78 |    11 | B    | Science  | 2003-09-14 |
+|  1006 | Jahanvi Puri   | Female |         60 |    11 | B    | Commerce | 2008-07-11 |
+|  1007 | Sanam Kumar    | Male   |         23 |    12 | F    | Commerce | 1998-08-03 |
+|  1008 | Sahil Saras    | Male   |         56 |    11 | C    | Commerce | 2008-07-11 |
+|  1009 | Akshra Agarval | Female |         72 |    12 | B    | Commerce | 1996-01-10 |
+|  1010 | Stuti Mishra   | Female |         39 |    11 | F    | Science  | 2008-11-23 |
+|  1011 | Harsh Agarval  | Male   |         42 |    11 | C    | Science  | 1998-03-08 |
+|  1012 | Nikunj Agarval | Male   |         49 |    12 | C    | Commerce | 1998-06-28 |
+|  1013 | Akriti Saxena  | Female |         89 |    12 | A    | Science  | 2008-11-23 |
+|  1014 | Tani Rastogi   | Female |         82 |    12 | A    | Science  | 2008-11-23 |
++-------+----------------+--------+------------+-------+------+----------+------------+
+14 rows in set (0.00 sec)
+
+2. To display any name and date of birth from the table STUDENT.
+Ans:-
+
+mysql> select stdName,DOB from student;
++----------------+------------+
+| stdName        | DOB        |
++----------------+------------+
+| Surekha Joshi  | 1998-08-03 |
+| Maahi Agarval  | 2008-11-23 |
+| Sanam Verma    | 2006-06-29 |
+| Ronit Kumar    | 1997-05-11 |
+| Dipesh Pulkit  | 2003-09-14 |
+| Jahanvi Puri   | 2008-07-11 |
+| Sanam Kumar    | 1998-08-03 |
+| Sahil Saras    | 2008-07-11 |
+| Akshra Agarval | 1996-01-10 |
+| Stuti Mishra   | 2008-11-23 |
+| Harsh Agarval  | 1998-03-08 |
+| Nikunj Agarval | 1998-06-28 |
+| Akriti Saxena  | 2008-11-23 |
+| Tani Rastogi   | 2008-11-23 |
++----------------+------------+
+14 rows in set (0.00 sec)
+
+3. To display all students record where percentage is greater of equal to 80 FROM student table. 
+Ans:-
+
+mysql> select * from student where Percentage >= 80;
++-------+---------------+--------+------------+-------+------+---------+------------+
+| stdID | stdName       | sex    | Percentage | class | sec  | Stream  | DOB        |
++-------+---------------+--------+------------+-------+------+---------+------------+
+|  1001 | Surekha Joshi | Female |         82 |    12 | A    | Science | 1998-08-03 |
+|  1013 | Akriti Saxena | Female |         89 |    12 | A    | Science | 2008-11-23 |
+|  1014 | Tani Rastogi  | Female |         82 |    12 | A    | Science | 2008-11-23 |
++-------+---------------+--------+------------+-------+------+---------+------------+
+3 rows in set (0.00 sec)
+
+4. To display student name, stream and percentage where percentage of student is more than 80.
+Ans:-
+
+mysql> select * from student where Percentage > 80;
++-------+---------------+--------+------------+-------+------+---------+------------+
+| stdID | stdName       | sex    | Percentage | class | sec  | Stream  | DOB        |
++-------+---------------+--------+------------+-------+------+---------+------------+
+|  1001 | Surekha Joshi | Female |         82 |    12 | A    | Science | 1998-08-03 |
+|  1013 | Akriti Saxena | Female |         89 |    12 | A    | Science | 2008-11-23 |
+|  1014 | Tani Rastogi  | Female |         82 |    12 | A    | Science | 2008-11-23 |
++-------+---------------+--------+------------+-------+------+---------+------------+
+3 rows in set (0.00 sec)
+
+5. To display all records of science students whose percentage is more than 75 form student table. 
+Ans:-
+
+mysql> select * from student where Stream = "Science" and Percentage > 75;
++-------+---------------+--------+------------+-------+------+---------+------------+
+| stdID | stdName       | sex    | Percentage | class | sec  | Stream  | DOB        |
++-------+---------------+--------+------------+-------+------+---------+------------+
+|  1001 | Surekha Joshi | Female |         82 |    12 | A    | Science | 1998-08-03 |
+|  1005 | Dipesh Pulkit | Male   |         78 |    11 | B    | Science | 2003-09-14 |
+|  1013 | Akriti Saxena | Female |         89 |    12 | A    | Science | 2008-11-23 |
+|  1014 | Tani Rastogi  | Female |         82 |    12 | A    | Science | 2008-11-23 |
++-------+---------------+--------+------------+-------+------+---------+------------+
+4 rows in set (0.00 sec)
+
